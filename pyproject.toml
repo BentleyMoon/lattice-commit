@@ -32,9 +32,9 @@ dev = ["pytest>=8.0", "ruff>=0.4"]
 lattice-commit = "lattice_commit.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/Vingadden/lattice-commit"
-Issues = "https://github.com/Vingadden/lattice-commit/issues"
-Paper = "https://github.com/Vingadden/lattice-commit/blob/main/PAPER.md"
+Homepage = "https://github.com/bentleymoon/lattice-commit"
+Issues = "https://github.com/bentleymoon/lattice-commit/issues"
+Paper = "https://github.com/bentleymoon/lattice-commit/blob/main/PAPER.md"
 
 [tool.hatch.build.targets.wheel]
 packages = ["lattice_commit"]
