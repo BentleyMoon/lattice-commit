@@ -13,7 +13,7 @@ PyPI: `pip install lattice-commit`.
 
 ## Status
 
-- Open-source package: alpha — `lattice-commit 0.1.0` on PyPI, 0.1.1 staged here
+- Open-source package: alpha — `lattice-commit 0.1.1` on PyPI, 0.1.2 staged here
 - Core behavior: git commits for improvements, `git reset --hard HEAD` for regressions
 - Safety default: refuses to run unless the workspace is a clean git repository root
 - Audit trail: JSONL run logs under `.git/lattice-commit/runs/`

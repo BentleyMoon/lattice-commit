@@ -2,6 +2,14 @@
 
 All notable changes to Lattice Commit will be documented here.
 
+## [0.1.2] - Unreleased
+
+### Distribution
+- Prepare corrected project links for the Bentley Moon GitHub identity migration.
+- Add credential-free PyPI publishing through GitHub Actions and OpenID Connect.
+- Isolate the publishing permission to the release job and the `pypi` environment.
+- No runtime code changes.
+
 ## [0.1.1] - 2026-05-08
 
 Local development target after the critique round.
