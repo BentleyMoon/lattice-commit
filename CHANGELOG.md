@@ -2,6 +2,15 @@
 
 All notable changes to Lattice Commit will be documented here.
 
+## [0.1.2] - 2026-10-23
+
+Package metadata only; the code is unchanged from 0.1.1.
+
+- The package page drops the "986+ trials" figure, which no saved run supports, and states the
+  evidence as a synthetic multi-file repair benchmark (22 workspaces, 3 local models).
+- Project URLs point at github.com/BentleyMoon/lattice-commit, and the contact address is
+  futurisminstitute@gmail.com.
+
 ## [0.1.1] - 2026-05-08
 
 Local development target after the critique round.

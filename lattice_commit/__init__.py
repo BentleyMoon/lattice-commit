@@ -17,7 +17,7 @@ Or from the command line:
     lattice-commit --workspace ./my_project --test-cmd "pytest -q" --model qwen2.5-coder:7b
 """
 
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 
 from .core import IncrementalResult, LatticeCommitSafetyError, incremental_repair
 
