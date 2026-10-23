@@ -6,17 +6,17 @@ Thanks for considering a contribution. Honest expectations up front:
 
 ## In scope
 
-- **Integration recipes** — new agents (Continue, Cline, Roo Code, Codeium, etc.) get integration docs in `examples/`
-- **Test-runner adapters** — currently the regex `(\d+) passed` is pytest-shaped. Other runners (jest, mocha, go test, cargo test) need their own count parsers.
-- **Multi-file proposer mode** — when the LLM is allowed to output fixes for multiple files in one response, the wall disappears. Adding native multi-file support to the wrapper.
-- **Better convergence reporting** — visualizations of the cycle/commit/rollback timeline.
-- **MCP server** — a packaged MCP server for Claude Code / Cursor.
+- **Integration recipes**: new agents (Continue, Cline, Roo Code, Codeium, etc.) get integration docs in `examples/`
+- **Test-runner adapters**: currently the regex `(\d+) passed` is pytest-shaped. Other runners (jest, mocha, go test, cargo test) need their own count parsers.
+- **Multi-file proposer mode**: when the LLM is allowed to output fixes for multiple files in one response, the wall disappears. Adding native multi-file support to the wrapper.
+- **Better convergence reporting**: visualizations of the cycle/commit/rollback timeline.
+- **MCP server**: a packaged MCP server for Claude Code / Cursor.
 
 ## Out of scope (for now)
 
-- **Replacing the commit/rollback mechanism with something more sophisticated.** That's the whole pitch — small, deterministic, auditable. PRs adding learned components or model-based decision logic will be closed unless they include statistical evidence that they outperform the bare mechanism on the same benchmark.
-- **General-purpose code analysis** — Lattice Commit is a wrapper, not a static analyzer.
-- **UI features beyond integration recipes** — the open-source repo focuses on the mechanism and CLI. A dashboard or GUI is out of scope for now.
+- **Replacing the commit/rollback mechanism with something more sophisticated.** That's the whole pitch: small, deterministic, auditable. PRs adding learned components or model-based decision logic will be closed unless they include statistical evidence that they outperform the bare mechanism on the same benchmark.
+- **General-purpose code analysis**: Lattice Commit is a wrapper, not a static analyzer.
+- **UI features beyond integration recipes**: the open-source repo focuses on the mechanism and CLI. A dashboard or GUI is out of scope for now.
 
 ## Process
 

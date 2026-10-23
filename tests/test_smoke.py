@@ -1,8 +1,8 @@
 """Smoke tests for the lattice-commit package.
 
 Intentionally minimal: they verify the public API imports and the CLI is
-invokable. The mechanism's behavioral evidence — the 986-trial multi-file-wall
-study — is documented in PAPER.md.
+invokable. The mechanism's behavioral evidence, the synthetic multi-file-wall
+study, is documented in PAPER.md.
 """
 
 

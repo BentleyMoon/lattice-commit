@@ -3,20 +3,20 @@
 **Bentley Moon**
 April 2026
 
-> This is a public-facing extract of §3 ("Finding 1: The Multi-File Wall") from a longer research synthesis on boundary mechanisms in AI systems. The full synthesis covers two additional findings — Governor Routing for LLM cost orchestration, and momentum protection for continual learning under metabolic energy constraint.
+> This is a public-facing extract of §3 ("Finding 1: The Multi-File Wall") from a longer research synthesis on boundary mechanisms in AI systems. The full synthesis covers two additional findings: Governor Routing for LLM cost orchestration, and momentum protection for continual learning under metabolic energy constraint.
 
 ## Abstract
 
-We study LLM-based code repair in an edit-test-revert loop. Across 22 purpose-built Python workspaces, 3 different LLMs, and 986+ pre-registered trials, we observe a structural failure mode: **bare LLM repair fails at F=2 files, regardless of bug count, bug complexity, model capability, or prompt engineering.** A 30-line incremental commit mechanism — commit on test improvement, rollback to last committed state — restores 100% solve rate through 8 bugs across 6 files.
+We study LLM-based code repair in an edit-test-revert loop. Across 22 purpose-built Python workspaces and 3 different LLMs, we observe a structural failure mode: **bare LLM repair fails at F=2 files, regardless of bug count, bug complexity, model capability, or prompt engineering.** A 30-line incremental commit mechanism (commit on test improvement, rollback to last committed state) restores a 100% solve rate up to 8 bugs across 4 files.
 
-The wall is **structural**, not capability-driven. It is caused by the one-file-per-proposal output interface: when the LLM proposes a fix to file A, tests are still failing because of file B, and the loop reverts everything — including the successful fix to A. Multi-file proposer ablation removes the wall entirely, confirming the diagnosis.
+The wall is **structural**, not capability-driven. It is caused by the one-file-per-proposal output interface: when the LLM proposes a fix to file A, tests are still failing because of file B, and the loop reverts everything, including the successful fix to A. Multi-file proposer ablation removes the wall entirely, confirming the diagnosis.
 
 ## 1. The Wall
 
 | Configuration | Bugs | Buggy files | Bare LLM | With commit | p |
 |---|:---:|:---:|:---:|:---:|:---:|
-| 3 bugs, 1 file | 3 | 1 | **100%** (8/8) | 100% | — |
-| 4 bugs, 1 file | 4 | 1 | **100%** (8/8) | 100% | — |
+| 3 bugs, 1 file | 3 | 1 | **100%** (8/8) | 100% | n/a |
+| 4 bugs, 1 file | 4 | 1 | **100%** (8/8) | 100% | n/a |
 | 2 bugs, 2 files | 2 | 2 | **0%** (0/8) | 100% | <0.0001 |
 | 4 bugs, 4 files | 4 | 4 | **0%** (0/10) | 100% | <0.0001 |
 | 5 bugs, 3 files | 5 | 3 | **0%** (0/10) | 100% | <0.0001 |
@@ -47,9 +47,9 @@ for cycle in range(max_cycles):
 
 ## 3. Why The Wall Exists
 
-Each LLM proposal modifies one file. If the proposal fixes file A but file B still has a bug, the test suite still fails, and the bare loop reverts everything — including the fix to A. With commit protection, the fix to A is committed and protected; subsequent cycles can work on B from a state where A is already fixed.
+Each LLM proposal modifies one file. If the proposal fixes file A but file B still has a bug, the test suite still fails, and the bare loop reverts everything, including the fix to A. With commit protection, the fix to A is committed and protected; subsequent cycles can work on B from a state where A is already fixed.
 
-**Causal confirmation:** When the LLM outputs fixes for multiple files in one response (multi-file proposer), the same 2-bug/2-file workspace that scores 0/8 with single-file output scores **5/5 with multi-file output** — bare loop, no commit. The wall is the interface constraint, confirmed by ablation.
+**Causal confirmation:** When the LLM outputs fixes for multiple files in one response (multi-file proposer), the same 2-bug/2-file workspace that scores 0/8 with single-file output scores **5/5 with multi-file output**: bare loop, no commit. The wall is the interface constraint, confirmed by ablation.
 
 ## 4. Invariances
 
@@ -74,7 +74,7 @@ Cycles-to-solve scales linearly with bug count: **cycles ≈ 0.72 × bugs + 2.2*
 
 - **SWE-bench** (Jimenez et al., 2024): benchmark for LLM repair on real issues. This work explains *why* multi-file tasks are harder.
 - **GenProg** (Le Goues et al., 2012): genetic programming for repair using test-suite fitness. Same fitness signal, with LLM proposals.
-- **Agentless** (Xia et al., 2024): LLM repair without agents. The commit mechanism is complementary — it wraps any proposer.
+- **Agentless** (Xia et al., 2024): LLM repair without agents. The commit mechanism is complementary: it wraps any proposer.
 - **TCR** (Beck, 2018): Test && Commit || Revert. This work shows TCR is **necessary** for LLM repair, not just convenient.
 
 ## 8. Limitations
@@ -86,12 +86,12 @@ Cycles-to-solve scales linearly with bug count: **cycles ≈ 0.72 × bugs + 2.2*
 ## 9. What This Doesn't Claim
 
 - That this generalizes to non-test-driven domains. The mechanism specifically requires a measurable correctness signal.
-- That this beats fine-tuned multi-file proposers. We show the bare LLM doesn't need the wrapper if it can output multi-file changes — but commercial agents don't always do that.
+- That this beats fine-tuned multi-file proposers. We show the bare LLM doesn't need the wrapper if it can output multi-file changes, but commercial agents don't always do that.
 - That commercial coding agents are broken. They mostly handle this in their own ways (Cursor's multi-file edits, Claude Code's tool-use loops). The wall manifests when those internal mechanisms aren't engaged.
 
 ## 10. Reproducing the Results
 
-The mechanism source is at `lattice_commit/core.py` in the open-source `lattice-commit` PyPI package. The 22 test workspaces and the 986-trial dataset are available on request.
+The mechanism source is at `lattice_commit/core.py` in the open-source `lattice-commit` PyPI package. The 22 test workspaces and the trial data are not public; they are available on request.
 
 To reproduce on your own workload:
 
@@ -102,6 +102,6 @@ To reproduce on your own workload:
 
 ## 11. Citation
 
-> Moon, B. (2026). *Boundary Mechanisms for Efficient AI Systems: Findings from a Multi-Project Research Program*. §3 (The Multi-File Wall). Independent research preprint.
+> Moon, B. (2026). *Boundary Mechanisms for Efficient AI Systems: Findings from a Multi-Project Research Program*. §3 (The Multi-File Wall). Unpublished synthesis; not public.
 
 The full synthesis paper is the canonical reference; this document is an extract.

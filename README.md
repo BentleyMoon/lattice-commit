@@ -13,11 +13,11 @@ PyPI: `pip install lattice-commit`.
 
 ## Status
 
-- Open-source package: alpha — `lattice-commit 0.1.0` on PyPI, 0.1.1 staged here
+- Open-source package: alpha, `lattice-commit 0.1.1` on PyPI
 - Core behavior: git commits for improvements, `git reset --hard HEAD` for regressions
 - Safety default: refuses to run unless the workspace is a clean git repository root
 - Audit trail: JSONL run logs under `.git/lattice-commit/runs/`
-- Evidence: synthetic multi-file repair benchmark, 986+ trials
+- Evidence: a synthetic multi-file repair benchmark (22 workspaces, 3 local models)
 - Next evidence target: real-repo validation and reproducible benchmark bundle
 
 ## The failure mode
@@ -100,7 +100,7 @@ The public research extract is in [PAPER.md](PAPER.md). It describes the
 synthetic multi-file wall result and the boundary-mechanism framing. Claims in
 this repo should stay inside the evidence boundary:
 
-- OK: "986+ synthetic trials"
+- OK: "a synthetic benchmark of 22 workspaces"
 - OK: "tested on llama3.1:8b, qwen2.5-coder:7b, and qwen2.5-coder:14b"
 - OK: "commit-on-improvement fixed the tested one-file-proposal loop"
 - Avoid: "works with any LLM and any test suite"
@@ -113,7 +113,7 @@ this repo should stay inside the evidence boundary:
 2. Validate the mechanism on real repositories with known multi-file bugs.
 3. Improve test-result parsing beyond pytest-style output.
 4. Add a dry-run/report mode before editing files.
-5. Ship one honest integration recipe that has been exercised end to end.
+5. Ship one integration recipe tested end to end.
 
 ## Files
 
