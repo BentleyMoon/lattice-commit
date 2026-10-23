@@ -9,7 +9,7 @@ description = "Git-native incremental checkpointing for test-gated LLM code repa
 readme = "README.md"
 license = { file = "LICENSE" }
 authors = [
-    { name = "Bentley Moon", email = "bentleymoonperkins@gmail.com" }
+    { name = "Bentley Moon", email = "futurisminstitute@gmail.com" }
 ]
 requires-python = ">=3.10"
 keywords = ["llm", "code-repair", "testing", "incremental-commit", "automated-repair"]

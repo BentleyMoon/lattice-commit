@@ -97,15 +97,7 @@ your project.
 ## Research
 
 The public research extract is in [PAPER.md](PAPER.md). It describes the
-synthetic multi-file wall result and the boundary-mechanism framing. Claims in
-this repo should stay inside the evidence boundary:
-
-- OK: "a synthetic benchmark of 22 workspaces"
-- OK: "tested on llama3.1:8b, qwen2.5-coder:7b, and qwen2.5-coder:14b"
-- OK: "commit-on-improvement fixed the tested one-file-proposal loop"
-- Avoid: "works with any LLM and any test suite"
-- Avoid: "all major coding agents silently throw away good fixes"
-- Avoid: "production SaaS features are already shipped"
+synthetic multi-file wall result and the boundary-mechanism framing.
 
 ## Development priorities
 

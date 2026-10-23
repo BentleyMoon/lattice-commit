@@ -31,7 +31,6 @@ Initial public alpha package.
 - Ollama-backed default proposer; pluggable callback API for custom fixers.
 
 ### Distribution layer
-- Customer-facing README, pricing, GTM materials.
 - Integration sketches for Cursor, Claude Code, and Aider.
 - Public extract of the multi-file-wall research section.
 

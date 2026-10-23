@@ -7,7 +7,7 @@ April 2026
 
 ## Abstract
 
-We study LLM-based code repair in an edit-test-revert loop. Across 22 purpose-built Python workspaces and 3 different LLMs, we observe a structural failure mode: **bare LLM repair fails at F=2 files, regardless of bug count, bug complexity, model capability, or prompt engineering.** A 30-line incremental commit mechanism (commit on test improvement, rollback to last committed state) restores a 100% solve rate up to 8 bugs across 4 files.
+We study LLM-based code repair in an edit-test-revert loop. Across 22 purpose-built Python workspaces and 3 different LLMs, we observe a structural failure mode: **in these synthetic workspaces, with three local models (7B to 14B) and 8 to 10 trials per cell, the bare loop solved no case where fixes spanned two or more files, across the bug counts, bug types and prompts tried.** A 30-line incremental commit mechanism (commit on test improvement, rollback to last committed state) restores a 100% solve rate up to 8 bugs across 4 files.
 
 The wall is **structural**, not capability-driven. It is caused by the one-file-per-proposal output interface: when the LLM proposes a fix to file A, tests are still failing because of file B, and the loop reverts everything, including the successful fix to A. Multi-file proposer ablation removes the wall entirely, confirming the diagnosis.
 
@@ -53,8 +53,8 @@ Each LLM proposal modifies one file. If the proposal fixes file A but file B sti
 
 ## 4. Invariances
 
-The wall is:
-- **Model-invariant:** Same step function for llama3.1:8b, qwen2.5-coder:7b, qwen2.5-coder:14b
+In these workspaces, with these three local models, the wall was:
+- **The same for each model tested:** the same step function for llama3.1:8b, qwen2.5-coder:7b and qwen2.5-coder:14b
 - **Bug-complexity-invariant:** Algorithmic bugs (binary search off-by-one, Fibonacci wrong base case) show the same pattern as operator flips
 - **Test-sparsity-robust:** 1 test per bug is sufficient for the mechanism to work
 - **Temperature-invariant:** 0.0 through 1.0 produce identical results (7.6 cycles average)
@@ -62,9 +62,9 @@ The wall is:
 
 ## 5. Isolation Control
 
-A 30-line wrapper implementing only the commit/rollback mechanism produces identical results (p=1.0, 40 trials) to a 2,100-line substrate system with typed transitions, containment validation, state caching, and proposal journals. **The value is in the commit pattern, not the infrastructure.**
+A 30-line wrapper implementing only the commit/rollback mechanism produces identical results (p=1.0, 40 trials) to a 2,100-line substrate system with typed transitions, containment validation, state caching, and proposal journals.
 
-This is the core finding for productization: the mechanism that breaks the wall is small enough to package as a library and deploy alongside any coding agent.
+The mechanism that breaks the wall is small enough to package as a library alongside a coding agent.
 
 ## 6. Scaling
 
@@ -75,7 +75,7 @@ Cycles-to-solve scales linearly with bug count: **cycles ≈ 0.72 × bugs + 2.2*
 - **SWE-bench** (Jimenez et al., 2024): benchmark for LLM repair on real issues. This work explains *why* multi-file tasks are harder.
 - **GenProg** (Le Goues et al., 2012): genetic programming for repair using test-suite fitness. Same fitness signal, with LLM proposals.
 - **Agentless** (Xia et al., 2024): LLM repair without agents. The commit mechanism is complementary: it wraps any proposer.
-- **TCR** (Beck, 2018): Test && Commit || Revert. This work shows TCR is **necessary** for LLM repair, not just convenient.
+- **TCR** (Beck, 2018): Test && Commit || Revert. In these synthetic workspaces, a TCR-style commit step was what let the one-file-proposal loop repair multi-file bugs.
 
 ## 8. Limitations
 
