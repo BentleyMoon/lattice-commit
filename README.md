@@ -33,6 +33,12 @@ to "keep monotone test improvements."
 | Bugs isolated in one file | Solved in benchmark | Solved in benchmark |
 | Fixes required across 2+ files | Failed in benchmark | Solved in benchmark |
 
+Each benchmark cell ran 8 or 10 trials: 8 for the one-file bug sets and the 2-bug, 2-file set, 10 for the
+sets spread over 3 and 4 files (the full table is in [PAPER.md](PAPER.md)). The 22 workspaces and the trial
+data are not public and are available on request from futurisminstitute@gmail.com. The bare loop committed
+only when every test passed, so it could not solve a bug set spanning two files; the paper's 2026-10-22
+correction explains what that means for the result.
+
 The current claim is deliberately scoped: this demonstrates a structural failure
 mode in the tested loop. It is not yet a universal claim about every coding
 agent, repository, model, or test runner.

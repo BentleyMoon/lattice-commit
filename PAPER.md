@@ -11,6 +11,8 @@ We study LLM-based code repair in an edit-test-revert loop. Across 22 purpose-bu
 
 The wall is **structural**, not capability-driven. It is caused by the one-file-per-proposal output interface: when the LLM proposes a fix to file A, tests are still failing because of file B, and the loop reverts everything, including the successful fix to A. Multi-file proposer ablation removes the wall entirely, confirming the diagnosis.
 
+> **Correction, 2026-10-22.** The 0% bare result follows from the loop's acceptance rule. The bare loop commits only when every test passes, and each proposal edits one file, so it cannot solve any bug set that spans two files. The finding is about the acceptance rule, not about LLMs. The claim that the wall is the same for every model is also narrowed: in a later local follow-up, models differed in which task presentation they did better on (section 4).
+
 ## 1. The Wall
 
 | Configuration | Bugs | Buggy files | Bare LLM | With commit | p |
@@ -43,13 +45,15 @@ for cycle in range(max_cycles):
         break
 ```
 
-30 lines. No framework. No learned parameters. The mechanism is `git commit` triggered by test improvement.
+The full wrapper is about 30 lines, uses no framework and has no learned parameters; it runs `git commit` each time the number of passing tests goes up.
 
 ## 3. Why The Wall Exists
 
 Each LLM proposal modifies one file. If the proposal fixes file A but file B still has a bug, the test suite still fails, and the bare loop reverts everything, including the fix to A. With commit protection, the fix to A is committed and protected; subsequent cycles can work on B from a state where A is already fixed.
 
 **Causal confirmation:** When the LLM outputs fixes for multiple files in one response (multi-file proposer), the same 2-bug/2-file workspace that scores 0/8 with single-file output scores **5/5 with multi-file output**: bare loop, no commit. The wall is the interface constraint, confirmed by ablation.
+
+*Corrected 2026-10-22:* given that acceptance rule, the 0% bare cells in section 1 could not have come out otherwise. Bare mode keeps nothing until every test passes, and a one-file proposal cannot make every test pass when two files hold bugs. The table measures what the acceptance rule allows. It does not measure how well the models reason about the bugs.
 
 ## 4. Invariances
 
@@ -59,6 +63,8 @@ In these workspaces, with these three local models, the wall was:
 - **Test-sparsity-robust:** 1 test per bug is sufficient for the mechanism to work
 - **Temperature-invariant:** 0.0 through 1.0 produce identical results (7.6 cycles average)
 - **Prompt-invariant:** Decomposition ("fix one bug at a time") is worse; history-in-prompt has no effect
+
+*Corrected 2026-10-22:* because the bare result follows from the acceptance rule (section 3), the same step function for all three models is expected and does not show model invariance. A later local follow-up (June 2026, internal) gave the same wall tasks in a single-file form and a multi-step form and compared hidden-test pass rates, single-file minus multi-step: +0.375 for qwen2.5-coder:7b and -0.55 for llama3.1:8b (5 runs per cell), then +0.125 for qwen2.5-coder:14b and -0.208 for codestral:22b (a partial batch). The models moved in different directions, so a model-invariant wall is not supported, and the larger models' results are unresolved.
 
 ## 5. Isolation Control
 
